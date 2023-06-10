@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "iggcli"
-version = "0.1.0"
+version = "0.1.1"
 description = "Download your games from Igg Games more easily."
 authors = ["Alekyo4 <alexsandergomes4742@gmail.com>"]
 license = "BeerWare"
