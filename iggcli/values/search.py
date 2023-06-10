@@ -4,5 +4,5 @@ E: dict = {
     "meta": ".uk-article-meta > a",
     "desc": ".uk-margin-medium-top",
     "date": ".uk-article-meta > time",
-    "image": ".attachment-post-thumbnail"
+    "image": ".attachment-post-thumbnail",
 }

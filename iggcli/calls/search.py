@@ -1,11 +1,12 @@
+from datetime import datetime as dt
+
+from bs4 import BeautifulSoup, Tag
 from rich import print
 from rich.table import Table
 
-from bs4 import Tag, BeautifulSoup
-from datetime import datetime as dt
-
 from iggcli.core import scrap
 from iggcli.values import search as E
+
 
 def call(query: str, page: int) -> None:
     parse: BeautifulSoup = scrap.parse(["page", str(page)], {"s": query})
@@ -18,16 +19,18 @@ def call(query: str, page: int) -> None:
     table.add_column("Release")
 
     for el in parse.select(E["elems"]):
-        title: str = el.select_one(E["title"]).text # type: ignore
+        title: str = el.select_one(E["title"]).text  # type: ignore
         meta: list[Tag] = el.select(E["meta"])
 
         posted_by: str = meta[0].text
         genres: list[str] = [x.text for x in meta[1:]]
-        date: str | dt = el.select_one(E["date"])["datetime"] # type: ignore
+        date: str | dt = el.select_one(E["date"])["datetime"]  # type: ignore
 
         title = title.split("Free")[0]
-        date = dt.fromisoformat(date) # type: ignore
-        
-        table.add_row(title, posted_by, ", ".join(genres) + ".", date.strftime("%d/%m/%Y"))
-    
+        date = dt.fromisoformat(date)  # type: ignore
+
+        table.add_row(
+            title, posted_by, ", ".join(genres) + ".", date.strftime("%d/%m/%Y")
+        )
+
     print(table)
